@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.daibing.myblog.dao.ArticleDao">
+    <resultMap id="BizArticleMap" type="com.daibing.myblog.pojo.BizArticle">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="user_id" property="userId"/>
+        <result column="cover_image" property="coverImage"/>
+        <result column="content" property="content"/>
+        <result column="top" property="top"/>
+        <result column="status" property="status"/>
+        <result column="recommended" property="recommended"/>
+        <result column="original" property="original"/>
+        <result column="introduction" property="introduction"/>
+        <result column="keywords" property="keywords"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <association property="type" javaType="com.daibing.myblog.pojo.BizType">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="description" property="description"/>
+            <result column="icon" property="icon"/>
+            <result column="available" property="available"/>
+            <result column="create_time" property="createTime"/>
+            <result column="update_time" property="updateTime"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertArticle" parameterType="com.daibing.myblog.pojo.BizArticle" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO biz_article(title, user_id, content, type_id, status, introduction, create_time)
+        VALUES(#{title},#{userId},#{content},#{type.id},#{status},#{introduction},#{createTime})
+    </insert>
+    <update id="updateArticle">
+        UPDATE biz_article
+        <set>
+            <if test="title != null">
+                title=#{title},
+            </if>
+            <if test="userId != null">
+                user_id=#{userId},
+            </if>
+            <if test="content != null">
+                content=#{content},
+            </if>
+            <if test="type.id != null">
+                type_id=#{type.id},
+            </if>
+            <if test="status != null">
+                status=#{status},
+            </if>
+            <if test="introduction != null">
+                introduction=#{introduction},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteByArticleId">
+        DELETE FROM biz_article WHERE id=#{cid}
+    </delete>
+
+    <select id="listAllArticles" resultMap="BizArticleMap">
+        SELECT * FROM biz_article ba, biz_type bt WHERE ba.type_id=bt.id ORDER BY ba.create_time
+    </select>
+    <select id="getArticleById" resultMap="BizArticleMap">
+         SELECT * FROM biz_article ba, biz_type bt WHERE ba.type_id=bt.id AND ba.id=#{id}
+    </select>
+
+</mapper>

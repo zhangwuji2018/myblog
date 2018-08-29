@@ -1,0 +1,57 @@
+# 端口号
+server:
+  port: 8081
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    # druid相关配置
+    druid:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mariadb://212.64.19.131:3306/dblog
+      username: root
+      password: daibing123
+      # 配置初始化大小/最小/最大
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      # 获取连接等待超时时间
+      max-wait: 60000
+      # 间隔多久进行一次检测，检测需要关闭的空闲连接
+      time-between-eviction-runs-millis: 60000
+      # 一个连接在池中最小生存的时间
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      # 监控统计拦截的filters
+      filters: stat,wall
+      stat-view-servlet:
+        login-username: admin
+        login-password: admin
+        allow:
+        deny:
+      max-pool-prepared-statement-per-connection-size: 20
+  thymeleaf:
+    cache: false
+# 配置mybatis
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.daibing.myblog.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+# 打印sql语句
+logging:
+  level:
+     com.daibing.myblog.dao : debug
+#pagehelper
+pagehelper:
+  # 分页插件会自动检测当前的数据库链接，自动选择合适的分页方式
+  helper-dialect: mariadb
+  # 分页合理化参数，默认值为false。当该参数设置为 true 时，pageNum<=0 时会查询第一页，pageNum>pages（超过总数时），会查询最后一页。默认false 时，直接根据参数进行查询
+  reasonable: true
+  # 支持通过 Mapper 接口参数来传递分页参数
+  support-methods-arguments: true
+  # 增加了该参数来配置参数映射，用于从对象中根据属性名取值
+  params: count=countSql

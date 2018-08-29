@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daibing.myblog.dao.CommentDao">
+  <resultMap id="BaseResultMap" type="com.daibing.myblog.pojo.BizComment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="browser" jdbcType="VARCHAR" property="browser" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="support" jdbcType="INTEGER" property="support" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <association property="article" column="sid" javaType="com.daibing.myblog.pojo.BizArticle" select="com.daibing.myblog.dao.ArticleDao.getArticleById">
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, nickname, avatar, ip, browser, content, remark, support, status, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select * from biz_comment where id = #{id}
+  </select>
+
+  <select id="getAllComments" resultMap="BaseResultMap">
+    select * from biz_comment bc,biz_article ba WHERE bc.sid=ba.id ORDER BY bc.create_time
+  </select>
+
+  <delete id="deleteByPrimaryKey" >
+    delete from biz_comment where id = #{id}
+  </delete>
+
+  <insert id="insert" parameterType="com.daibing.myblog.pojo.BizComment">
+    insert into biz_comment (id, sid, nickname, 
+      avatar, ip, browser, 
+      content, remark, support, 
+      status, create_time)
+    values (#{id,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, 
+      #{avatar,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{support,jdbcType=INTEGER}, 
+      #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daibing.myblog.pojo.BizComment">
+    insert into biz_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="browser != null">
+        browser,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="support != null">
+        support,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null">
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null">
+        #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="support != null">
+        #{support,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daibing.myblog.pojo.BizComment">
+    update biz_comment
+    <set>
+      <if test="sid != null">
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null">
+        browser = #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="support != null">
+        support = #{support,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" >
+    update biz_comment set status = 1 where id = #{id}
+  </update>
+</mapper>

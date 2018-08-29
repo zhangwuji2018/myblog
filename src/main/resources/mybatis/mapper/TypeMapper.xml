@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.daibing.myblog.dao.TypeDao">
+
+    <sql id="type_list">
+        id, name, description, icon, available, create_time, update_time
+    </sql>
+    <select id="getTypeById" resultType="com.daibing.myblog.pojo.BizType">
+        select
+        <include refid="type_list"/>
+        from biz_type where id=#{id}
+    </select>
+    <select id="getAllType" resultType="com.daibing.myblog.pojo.BizType">
+        select
+        <include refid="type_list"/>
+        from biz_type
+    </select>
+</mapper>

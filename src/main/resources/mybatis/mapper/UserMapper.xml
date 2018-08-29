@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daibing.myblog.dao.UserDao">
+  <sql id="column_list">
+    id, username, password, nickname, mobile, email, gender, avatar, blog, reg_ip, last_login_ip,
+    last_login_time, login_count, remark, status, create_time, update_time
+  </sql>
+
+  <select id="countByUserName" resultType="java.lang.Long">
+    SELECT COUNT(*) FROM sys_user WHERE username=#{username}
+  </select>
+  <select id="getUserByNameAndPwd" resultType="com.daibing.myblog.pojo.SysUser">
+    SELECT
+    <include refid="column_list"/>
+    FROM sys_user WHERE username=#{username} AND password=#{password}
+  </select>
+  <select id="getUserById" resultType="com.daibing.myblog.pojo.SysUser">
+    SELECT
+    <include refid="column_list"/>
+    FROM sys_user WHERE id=#{userId}
+  </select>
+  <update id="updateUserById" parameterType="com.daibing.myblog.pojo.SysUser">
+    UPDATE sys_user
+    <set>
+      <if test="username != null">
+        username=#{username},
+      </if>
+      <if test="password != null">
+        password=#{password},
+      </if>
+      <if test="nickname != null">
+        nickname=#{nickname},
+      </if>
+      <if test="mobile != null">
+        mobile=#{mobile},
+      </if>
+      <if test="email != null">
+        email=#{email}
+      </if>
+    </set>
+    WHERE id=#{id}
+  </update>
+</mapper>

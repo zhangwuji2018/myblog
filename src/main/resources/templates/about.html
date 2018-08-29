@@ -1,0 +1,52 @@
+<!doctype html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="common :: copy"></div>
+<body>
+<header>
+    <!--menu begin-->
+    <div class="menu">
+        <!--引入公共部分-->
+        <div th:replace="common :: #topnav"></div>
+    </div>
+    <!--menu end-->
+</header>
+<div class="pagebg ab"></div>
+<div class="container">
+    <h1 class="t_nav"><span>像“草根”一样，紧贴着地面，低调的存在，冬去春来，枯荣无恙。</span><a href="/" class="n1">网站首页</a><a href="/" class="n2">关于我</a>
+    </h1>
+    <div class="news_infos">
+        <ul>
+            <p>hello world</p>
+            <br/>
+            <h2>About my blog</h2>
+            &nbsp;
+            <p>域 名：&nbsp;</p>
+            <br/>
+            <p>服务器：阿里云服务器&nbsp;&nbsp;<a
+                    href="https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=8smrzoqa&amp;productCode=vm"
+                    target="_blank"><span style="color:#FF0000;"><strong>前往阿里云官网购买&gt;&gt;</strong></span></a></p>
+            <br/>
+
+        </ul>
+    </div>
+    <div class="sidebar">
+        <div class="about">
+            <p class="avatar"><img th:src="@{/assets/images/avatar.jpg}" alt=""></p>
+            <p class="abname">dancesmile | 代兵</p>
+            <p class="abposition">Web前端设计师、网页设计</p>
+            <p class="abtext"> 一个80后草根女站长！09年入行。一直潜心研究web前端技术，一边工作一边积累经验，分享一些个人博客模板，以及SEO优化等心得。 </p>
+        </div>
+        <div class="weixin">
+            <h2 class="hometitle">微信关注</h2>
+            <ul>
+                <img th:src="@{/assets/images/wx.jpg}">
+            </ul>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>Design by <a href="#" target="_blank">代兵个人博客</a> </p>
+</footer>
+<a href="#" class="cd-top">Top</a>
+</body>
+</html>
