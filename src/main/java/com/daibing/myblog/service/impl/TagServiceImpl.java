@@ -1,6 +1,6 @@
 package com.daibing.myblog.service.impl;
-
 import com.daibing.myblog.dao.BizTagsDao;
+import com.daibing.myblog.exception.TipException;
 import com.daibing.myblog.pojo.BizTags;
 import com.daibing.myblog.service.TagService;
 import com.daibing.myblog.utils.BlogUtils;
@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,5 +37,25 @@ public class TagServiceImpl implements TagService {
             }
         }
         return null;
+    }
+
+    @Override
+    public void delete(Integer cid) {
+        if (cid == null) {
+            throw new TipException("要删除的标签的id为空");
+        }
+        tagsDao.delete(cid);
+    }
+
+    @Override
+    public void insert(String tname) {
+        if (tname == null) {
+            throw new TipException("新增的标签名称为空");
+        }
+        BizTags tag = new BizTags();
+        tag.setName(tname);
+        tag.setCreateTime(new Date());
+
+        tagsDao.insertTag(tag);
     }
 }

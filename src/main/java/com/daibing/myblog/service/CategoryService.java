@@ -8,7 +8,7 @@ import java.util.List;
  * @Auther: daibing
  * @Date: 2018/8/16 11:20
  */
-public interface TypeService {
+public interface CategoryService {
 
     /**
      * 获取所有文章分类
@@ -22,4 +22,17 @@ public interface TypeService {
      * @return type
      */
     BizType getTypeById(Integer typeId);
+
+    /**
+     * 保存一个分类
+     * @param cid 分类id
+     * @param cname 分类名称
+     */
+    void saveCategory(Integer cid, String cname);
+
+    /**
+     * 删除分类
+     * @param cid
+     */
+    void delete(Integer cid);
 }

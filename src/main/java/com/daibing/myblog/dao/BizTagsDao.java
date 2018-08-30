@@ -24,4 +24,16 @@ public interface BizTagsDao {
      * @return 标签集合
      */
     List<BizTags> getTagsWithArticleId(@Param("articleId") int articleId);
+
+    /**
+     * 删除标签
+     * @param cid
+     */
+    void delete(@Param("cid") Integer cid);
+
+    /**
+     * 新增标签
+     * @param tag
+     */
+    void insertTag(BizTags tag);
 }

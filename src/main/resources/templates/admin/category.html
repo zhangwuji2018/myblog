@@ -28,11 +28,11 @@
                                             </button>
                                             <ul class="dropdown-menu" role="menu">
                                                 <li>
-                                                    <a href="javascript:void(0)" th:attr="mid=${type.id},cname=${type.name}"
+                                                    <a href="javascript:void(0)" th:attr="cid=${type.id},cname=${type.name}"
                                                        class="edit-category">修改</a>
                                                 </li>
                                                 <li>
-                                                    <a href="javascript:void(0)" th:attr="mid=${type.id}"
+                                                    <a href="javascript:void(0)" th:attr="cid=${type.id}, flag='category'"
                                                        class="del-category">删除</a>
                                                 </li>
                                             </ul>
@@ -57,11 +57,7 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li>
-                                                <a href="javascript:void(0)" th:attr="mid=${tag.id},cname=${tag.name}"
-                                                   class="edit-category">修改</a>
-                                            </li>
-                                            <li><a href="javascript:void(0)" th:attr="mid=${tag.id}"
+                                            <li><a href="javascript:void(0)" th:attr="cid=${tag.id}, flag='tag'"
                                                    class="del-category">删除</a>
                                             </li>
                                         </ul>
@@ -74,12 +70,28 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <form id="cform" class="form-inline" role="form">
-                                    <input type="hidden" id="mid"/>
+                                    <input type="hidden" id="cid"/>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="cname" placeholder="请输入分类名称"/>
                                     </div>
                                     <button id="save-category-btn" type="button"
                                             class="btn btn-success waves-effect waves-light m-l-10">保存分类
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--标签-->
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <form id="tform" class="form-inline" role="form">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="tname" placeholder="请输入标签名称"/>
+                                    </div>
+                                    <button id="save-tag-btn" type="button"
+                                            class="btn btn-success waves-effect waves-light m-l-10">保存标签
                                     </button>
                                 </form>
 
@@ -99,13 +111,13 @@
 
     $('#save-category-btn').click(function () {
         var cname = $('#cform #cname').val();
-        var mid = $('#cform #mid').val();
+        var cid = $('#cform #cid').val();
         if (cname && cname != '') {
             tale.post({
-                url: '/admin/category/save',
-                data: {mid: mid, cname: cname},
+                url: '/admin/category/saveCategory',
+                data: {cid: cid, cname: cname},
                 success: function (result) {
-                    $('#cform #mid').val('');
+                    $('#cform #cid').val('');
                     $('#cform #cname').val('');
                     if (result && result.success) {
                         tale.alertOkAndReload('分类保存成功');
@@ -118,20 +130,21 @@
     });
 
     $('.edit-category').click(function () {
-        var mid = $(this).attr('mid');
+        var cid = $(this).attr('cid');
         var cname = $(this).attr('cname');
-        $('#cform #mid').val(mid);
+        $('#cform #cid').val(cid);
         $('#cform #cname').val(cname);
     });
 
     $('.del-category').click(function () {
-        var mid = $(this).attr('mid');
+        var cid = $(this).attr('cid');
+        var flag = $(this).attr('flag');
         tale.alertConfirm({
             title: '确定删除该项吗?',
             then: function () {
                 tale.post({
                     url: '/admin/category/delete',
-                    data: {mid: mid},
+                    data: {cid: cid, flag: flag},
                     success: function (result) {
                         if (result && result.success) {
                             tale.alertOkAndReload('删除成功');
@@ -142,6 +155,24 @@
                 });
             }
         });
+    });
+
+    $('#save-tag-btn').click(function () {
+        var tname = $('#tform #tname').val();
+        if (tname && tname != '') {
+            tale.post({
+                url: '/admin/category/saveTag',
+                data: {tname: tname},
+                success: function (result) {
+                    $('#tform #tname').val('');
+                    if (result && result.success) {
+                        tale.alertOkAndReload('标签保存成功');
+                    } else {
+                        tale.alertError(result.msg || '标签保存失败');
+                    }
+                }
+            });
+        }
     });
     /*]]>*/
 </script>

@@ -10,7 +10,7 @@ import com.daibing.myblog.pojo.SysUser;
 import com.daibing.myblog.service.ArticleService;
 import com.daibing.myblog.service.LogService;
 import com.daibing.myblog.service.TagService;
-import com.daibing.myblog.service.TypeService;
+import com.daibing.myblog.service.CategoryService;
 import com.daibing.myblog.utils.BlogUtils;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -44,7 +44,7 @@ public class ArticleController {
     private TagService tagService;
 
     @Autowired
-    private TypeService typeService;
+    private CategoryService categoryService;
 
     @Autowired
     private LogService logService;
@@ -74,7 +74,7 @@ public class ArticleController {
 
         ModelAndView view = new ModelAndView("admin/article_edit");
         List<BizTags> tags = tagService.listAllTags();
-        List<BizType> types = typeService.listAllType();
+        List<BizType> types = categoryService.listAllType();
         view.addObject("tags",tags);
         view.addObject("types",types);
 
@@ -95,7 +95,7 @@ public class ArticleController {
         LOGGER.info("请求参数article="+article+";tagId="+ Arrays.toString(tagId));
 
         SysUser loginUser = BlogUtils.getLoginUser(request);
-        BizType type = typeService.getTypeById(typeId);
+        BizType type = categoryService.getTypeById(typeId);
         article.setUserId(loginUser.getId());
         article.setType(type);
         article.setCreateTime(new Date());
@@ -125,7 +125,7 @@ public class ArticleController {
         ModelAndView view = new ModelAndView("admin/article_edit");
         BizArticle article = articleService.getArticleById(id);
         List<BizTags> tags = tagService.listAllTags();
-        List<BizType> types = typeService.listAllType();
+        List<BizType> types = categoryService.listAllType();
         List<BizTags> articleTags = tagService.getTagsWithArticleId(id);
         view.addObject("tags",tags);
         view.addObject("types", types);
@@ -150,7 +150,7 @@ public class ArticleController {
         LOGGER.info("文章参数="+article+";标签组tagId="+ Arrays.toString(tagId)+";分类typeId="+typeId);
 
         SysUser loginUser = BlogUtils.getLoginUser(request);
-        BizType type = typeService.getTypeById(typeId);
+        BizType type = categoryService.getTypeById(typeId);
         article.setUserId(loginUser.getId());
         article.setType(type);
 

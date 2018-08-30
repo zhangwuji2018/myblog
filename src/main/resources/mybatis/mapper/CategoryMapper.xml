@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.daibing.myblog.dao.TypeDao">
+<mapper namespace="com.daibing.myblog.dao.CategoryDao">
 
     <sql id="type_list">
         id, name, description, icon, available, create_time, update_time
     </sql>
+    <insert id="insert" parameterType="com.daibing.myblog.pojo.BizType">
+        INSERT INTO biz_type(name, create_time) VALUES(#{name}, #{createTime})
+    </insert>
+    <update id="update">
+        UPDATE biz_type SET name=#{name} WHERE id=#{id}
+    </update>
+    <delete id="delete">
+        DELETE FROM biz_type WHERE id=#{cid}
+    </delete>
     <select id="getTypeById" resultType="com.daibing.myblog.pojo.BizType">
         select
         <include refid="type_list"/>

@@ -12,7 +12,7 @@ import java.util.List;
  * @create: 2018-07-26 15:18
  **/
 @Component
-public interface TypeDao {
+public interface CategoryDao {
 
     /**
      * @param id
@@ -25,4 +25,22 @@ public interface TypeDao {
      * @return
      */
     List<BizType> getAllType();
+
+    /**
+     * 更新分类
+     * @param type
+     */
+    void update(BizType type);
+
+    /**
+     * 新增分类
+     * @param type
+     */
+    void insert(BizType type);
+
+    /**
+     * 删除分类
+     * @param cid
+     */
+    void delete(@Param("cid") Integer cid);
 }

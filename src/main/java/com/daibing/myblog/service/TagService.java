@@ -21,4 +21,16 @@ public interface TagService {
      * @return
      */
     List<BizTags> getTagsWithArticleId(String id);
+
+    /**
+     * 删除标签
+     * @param cid
+     */
+    void delete(Integer cid);
+
+    /**
+     * 新增标签
+     * @param tname
+     */
+    void insert(String tname);
 }
