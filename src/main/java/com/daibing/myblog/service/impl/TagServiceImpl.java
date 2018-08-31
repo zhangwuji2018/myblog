@@ -1,6 +1,9 @@
 package com.daibing.myblog.service.impl;
-import com.daibing.myblog.dao.BizTagsDao;
+import com.daibing.myblog.dao.ArticleTagsDao;
+import com.daibing.myblog.dao.TagsDao;
+import com.daibing.myblog.dto.BizTagsDto;
 import com.daibing.myblog.exception.TipException;
+import com.daibing.myblog.pojo.BizArticleTags;
 import com.daibing.myblog.pojo.BizTags;
 import com.daibing.myblog.service.TagService;
 import com.daibing.myblog.utils.BlogUtils;
@@ -20,7 +23,10 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
 
     @Autowired
-    private BizTagsDao tagsDao;
+    private TagsDao tagsDao;
+
+    @Autowired
+    private ArticleTagsDao articleTagsDao;
 
     @Override
     public List<BizTags> listAllTags() {
@@ -44,6 +50,11 @@ public class TagServiceImpl implements TagService {
         if (cid == null) {
             throw new TipException("要删除的标签的id为空");
         }
+        // 判断该标签能否删除
+        List<BizArticleTags> tags = articleTagsDao.getArticleTagsByTigId(cid);
+        if (tags.size() > 0) {
+            throw new TipException("标签有对应的文章不能删除");
+        }
         tagsDao.delete(cid);
     }
 
@@ -57,5 +68,10 @@ public class TagServiceImpl implements TagService {
         tag.setCreateTime(new Date());
 
         tagsDao.insertTag(tag);
+    }
+
+    @Override
+    public List<BizTagsDto> getAllTigsDto() {
+        return tagsDao.getAllTigsDto();
     }
 }

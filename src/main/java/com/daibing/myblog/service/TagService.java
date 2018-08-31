@@ -1,6 +1,8 @@
 package com.daibing.myblog.service;
 
+import com.daibing.myblog.dto.BizTagsDto;
 import com.daibing.myblog.pojo.BizTags;
+
 import java.util.List;
 
 /**
@@ -33,4 +35,10 @@ public interface TagService {
      * @param tname
      */
     void insert(String tname);
+
+    /**
+     * 查询所有标签,BizTagsDto包装类
+     * @return
+     */
+    List<BizTagsDto> getAllTigsDto();
 }

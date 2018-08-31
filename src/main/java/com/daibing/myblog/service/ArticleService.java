@@ -47,4 +47,23 @@ public interface ArticleService {
      * @param cid
      */
     void deleteByArticleId(int cid);
+
+    /**
+     * 通过分类id查出所有的文章
+     * @param cid
+     * @return
+     */
+    List<BizArticle> getArticleByTypeId(Integer cid);
+
+    /**
+     * 获取所有的文章
+     * @return
+     */
+    List<BizArticle> getAllArticle();
+
+    /**
+     * 取最新的文章
+     * @return
+     */
+    List<BizArticle> getAllArticleWithLimit();
 }

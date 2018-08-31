@@ -46,6 +46,19 @@ public interface ArticleDao {
     void deleteByArticleId(@Param("cid") int cid);
 
     /**
+     * 通过分类id查出所有的文章
+     * @param cid
+     * @return
+     */
+    List<BizArticle> getArticleByTypeId(@Param("cid") Integer cid);
+
+    /**
+     * 取最新的文章
+     * @return
+     */
+    List<BizArticle> getAllArticleWithLimit();
+
+    /**
      *
      * @param top 1代表顶部 2代表右侧
      * @return 查询文章集合

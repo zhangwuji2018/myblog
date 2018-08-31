@@ -5,9 +5,16 @@
   <sql id="Base_Column_List">
     id, action, data, user_id, ip, create_time
   </sql>
+
   <insert id="insert" parameterType="com.daibing.myblog.pojo.SysLog">
     insert into sys_log (action, data, user_id, ip)
     values (#{action}, #{data}, #{userId}, #{ip} )
   </insert>
+
+  <select id="getLogsWithLimit" resultType="com.daibing.myblog.pojo.SysLog">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_log ORDER BY create_time DESC LIMIT 5
+  </select>
 
 </mapper>

@@ -14,4 +14,22 @@ public interface LinkService {
      * @return 获取所有的链接集合
      */
     List<SysLink> getAllLink();
+
+    /**
+     * 新增链接
+     * @param link
+     */
+    void addLink(SysLink link);
+
+    /**
+     * 修改链接
+     * @param link
+     */
+    void updateLink(SysLink link);
+
+    /**
+     * 删除链接
+     * @param id
+     */
+    void deleteLink(Integer id);
 }

@@ -24,6 +24,7 @@
                                                     th:class="'btn btn-'+${adminCommons.rand_color()}+' dropdown-toggle waves-effect waves-light'"
                                                     data-toggle="dropdown" aria-expanded="false">
                                                 <th:block th:text="${type.name}"/>
+                                                <th:block th:text="' ('+${#lists.size(type.articles)}+')'"/>
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" role="menu">
@@ -54,6 +55,7 @@
                                                 th:class="'btn btn-'+${adminCommons.rand_color()}+' dropdown-toggle waves-effect waves-light'"
                                                 data-toggle="dropdown" aria-expanded="false">
                                             <th:block th:text="${tag.name}"/>
+                                            <th:block th:text="' ('+${tag.articleNum}+')'"/>
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">

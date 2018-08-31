@@ -26,10 +26,12 @@
         </association>
     </resultMap>
 
-    <insert id="insertArticle" parameterType="com.daibing.myblog.pojo.BizArticle" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertArticle" parameterType="com.daibing.myblog.pojo.BizArticle" useGeneratedKeys="true"
+            keyProperty="id">
         INSERT INTO biz_article(title, user_id, content, type_id, status, introduction, create_time)
         VALUES(#{title},#{userId},#{content},#{type.id},#{status},#{introduction},#{createTime})
     </insert>
+
     <update id="updateArticle">
         UPDATE biz_article
         <set>
@@ -54,6 +56,7 @@
         </set>
         WHERE id=#{id}
     </update>
+
     <delete id="deleteByArticleId">
         DELETE FROM biz_article WHERE id=#{cid}
     </delete>
@@ -61,8 +64,17 @@
     <select id="listAllArticles" resultMap="BizArticleMap">
         SELECT * FROM biz_article ba, biz_type bt WHERE ba.type_id=bt.id ORDER BY ba.create_time
     </select>
+
     <select id="getArticleById" resultMap="BizArticleMap">
          SELECT * FROM biz_article ba, biz_type bt WHERE ba.type_id=bt.id AND ba.id=#{id}
+    </select>
+
+    <select id="getArticleByTypeId" resultMap="BizArticleMap">
+        SELECT * FROM biz_article ba, biz_type bt WHERE ba.type_id=bt.id AND ba.type_id=#{cid}
+    </select>
+
+    <select id="getAllArticleWithLimit" resultMap="BizArticleMap">
+        SELECT * FROM biz_article ba, biz_type bt WHERE ba.type_id=bt.id ORDER BY ba.create_time desc limit 5
     </select>
 
 </mapper>

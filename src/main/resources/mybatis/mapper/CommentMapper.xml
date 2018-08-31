@@ -27,7 +27,11 @@
     select * from biz_comment bc,biz_article ba WHERE bc.sid=ba.id ORDER BY bc.create_time
   </select>
 
-  <delete id="deleteByPrimaryKey" >
+  <select id="getCommentsWithLimit" resultMap="BaseResultMap">
+      select * from biz_comment bc,biz_article ba WHERE bc.sid=ba.id ORDER BY bc.create_time desc LIMIT 5
+  </select>
+
+    <delete id="deleteByPrimaryKey" >
     delete from biz_comment where id = #{id}
   </delete>
 

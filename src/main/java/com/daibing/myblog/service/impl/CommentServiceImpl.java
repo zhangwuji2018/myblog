@@ -52,4 +52,14 @@ public class CommentServiceImpl implements CommentService {
         }
         commentDao.updateByPrimaryKey(id);
     }
+
+    @Override
+    public List<BizComment> listAllComments() {
+        return commentDao.getAllComments();
+    }
+
+    @Override
+    public List<BizComment> getAllCommentsWithLimit() {
+        return commentDao.getCommentsWithLimit();
+    }
 }

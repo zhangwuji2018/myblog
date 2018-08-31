@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.daibing.myblog.dao.CategoryDao">
-
+    <resultMap id="typesMap" type="com.daibing.myblog.pojo.BizType">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="icon" property="icon"/>
+        <result column="available" property="available"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <collection property="articles" ofType="com.daibing.myblog.pojo.BizArticle" column="id" select="getArticle">
+        </collection>
+    </resultMap>
     <sql id="type_list">
         id, name, description, icon, available, create_time, update_time
     </sql>
@@ -14,14 +24,17 @@
     <delete id="delete">
         DELETE FROM biz_type WHERE id=#{cid}
     </delete>
-    <select id="getTypeById" resultType="com.daibing.myblog.pojo.BizType">
+    <select id="getTypeById" resultMap="typesMap">
         select
         <include refid="type_list"/>
         from biz_type where id=#{id}
     </select>
-    <select id="getAllType" resultType="com.daibing.myblog.pojo.BizType">
+    <select id="getAllType" resultMap="typesMap">
         select
         <include refid="type_list"/>
         from biz_type
+    </select>
+    <select id="getArticle" parameterType="int" resultType="com.daibing.myblog.pojo.BizArticle">
+        SELECT * FROM biz_article WHERE type_id=#{id}
     </select>
 </mapper>

@@ -1,11 +1,14 @@
 package com.daibing.myblog.dao;
 
+import com.daibing.myblog.pojo.BizArticleTags;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 
 @Component
-public interface BizArticleTagsDao {
+public interface ArticleTagsDao {
 
     /**
      * 插入到文章标签表
@@ -21,4 +24,11 @@ public interface BizArticleTagsDao {
      * @return
      */
     int removeTagsWithArticleId(@Param("id") Integer id);
+
+    /**
+     * 通过标签id查出所有
+     * @param cid
+     * @return
+     */
+    List<BizArticleTags> getArticleTagsByTigId(@Param("cid") Integer cid);
 }

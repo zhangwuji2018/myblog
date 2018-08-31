@@ -3,6 +3,8 @@ package com.daibing.myblog.service;
 import com.daibing.myblog.pojo.BizComment;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 /**
  * @Description: 评论服务接口
  * @Auther: daibing
@@ -36,4 +38,16 @@ public interface CommentService {
      * @param id
      */
     void updateCommentStatusById(Integer id);
+
+    /**
+     * 获取所有的评论
+     * @return
+     */
+    List<BizComment> listAllComments();
+
+    /**
+     * 获取最新的评论
+     * @return
+     */
+    List<BizComment> getAllCommentsWithLimit();
 }

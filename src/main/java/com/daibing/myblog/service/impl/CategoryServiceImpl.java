@@ -1,7 +1,9 @@
 package com.daibing.myblog.service.impl;
 import com.daibing.myblog.dao.CategoryDao;
 import com.daibing.myblog.exception.TipException;
+import com.daibing.myblog.pojo.BizArticle;
 import com.daibing.myblog.pojo.BizType;
+import com.daibing.myblog.service.ArticleService;
 import com.daibing.myblog.service.CategoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private ArticleService articleService;
 
     @Override
     public List<BizType> listAllType() {
@@ -57,6 +62,11 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(Integer cid) {
         if (cid == null) {
             throw new TipException("要删除的分类id为空");
+        }
+        // 获取分类下的文章，用于判断能否删除
+        List<BizArticle> articles = articleService.getArticleByTypeId(cid);
+        if (articles.size() > 0) {
+            throw new TipException("该分类下还有文章,不能删除");
         }
         categoryDao.delete(cid);
     }

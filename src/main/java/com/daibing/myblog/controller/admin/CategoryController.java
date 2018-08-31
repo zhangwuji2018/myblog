@@ -1,11 +1,11 @@
 package com.daibing.myblog.controller.admin;
 
 import com.daibing.myblog.bo.RestResponseBo;
+import com.daibing.myblog.dto.BizTagsDto;
 import com.daibing.myblog.exception.TipException;
-import com.daibing.myblog.pojo.BizTags;
 import com.daibing.myblog.pojo.BizType;
-import com.daibing.myblog.service.TagService;
 import com.daibing.myblog.service.CategoryService;
+import com.daibing.myblog.service.TagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class CategoryController {
     @GetMapping(value = "")
     public ModelAndView category() {
         ModelAndView view = new ModelAndView("admin/category");
-        List<BizTags> tags = tagService.listAllTags();
+        List<BizTagsDto> tags = tagService.getAllTigsDto();
         List<BizType> types = categoryService.listAllType();
         view.addObject("tags",tags);
         view.addObject("types",types);

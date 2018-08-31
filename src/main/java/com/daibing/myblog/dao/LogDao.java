@@ -3,6 +3,8 @@ package com.daibing.myblog.dao;
 import com.daibing.myblog.pojo.SysLog;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @program: myblog
  * @description: 日志接口
@@ -16,4 +18,10 @@ public interface LogDao {
      * @param log
      */
     void insert(SysLog log);
+
+    /**
+     * 取日志信息
+     * @return
+     */
+    List<SysLog> getLogsWithLimit();
 }

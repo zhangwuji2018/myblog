@@ -1,5 +1,9 @@
 package com.daibing.myblog.service;
 
+import com.daibing.myblog.pojo.SysLog;
+
+import java.util.List;
+
 /**
  * @program: myblog
  * @description: 日志服务接口
@@ -16,4 +20,10 @@ public interface LogService {
      * @param userId
      */
     void insertLog(String action, String data, String ip, Integer userId);
+
+    /**
+     * 取limit条日志
+     * @return
+     */
+    List<SysLog> getLogsWithLimit();
 }

@@ -1,6 +1,7 @@
 package com.daibing.myblog.dao;
 
 import com.daibing.myblog.pojo.SysLink;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
@@ -17,4 +18,22 @@ public interface LinkDao {
      * @return
      */
     List<SysLink> getAllLink();
+
+    /**
+     * 新增一条链接
+     * @param link
+     */
+    void addNewLink(SysLink link);
+
+    /**
+     * 修改一条链接
+     * @param link
+     */
+    void updateLink(SysLink link);
+
+    /**
+     * 根据id删除链接
+     * @param id
+     */
+    void deleteLinkById(@Param("id") Integer id);
 }

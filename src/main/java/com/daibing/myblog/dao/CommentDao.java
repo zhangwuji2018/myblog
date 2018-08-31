@@ -43,4 +43,10 @@ public interface CommentDao {
      * @return
      */
     List<BizComment> getAllComments();
+
+    /**
+     * 获取最新的评论
+     * @return
+     */
+    List<BizComment> getCommentsWithLimit();
 }

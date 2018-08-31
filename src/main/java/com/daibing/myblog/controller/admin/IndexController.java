@@ -3,9 +3,8 @@ package com.daibing.myblog.controller.admin;
 import com.daibing.myblog.bo.RestResponseBo;
 import com.daibing.myblog.dto.LogActions;
 import com.daibing.myblog.exception.TipException;
-import com.daibing.myblog.pojo.SysUser;
-import com.daibing.myblog.service.LogService;
-import com.daibing.myblog.service.UserService;
+import com.daibing.myblog.pojo.*;
+import com.daibing.myblog.service.*;
 import com.daibing.myblog.utils.BlogUtils;
 import com.daibing.myblog.utils.WebConstant;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -19,8 +18,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @program: myblog
@@ -40,13 +41,40 @@ public class IndexController {
     @Autowired
     private LogService logService;
 
+    @Autowired
+    private ArticleService articleService;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private LinkService linkService;
+
     /**
      * 主页面
      * @return
      */
     @GetMapping("/index")
-    public String index() {
-        return "admin/index";
+    public ModelAndView index() {
+        ModelAndView view = new ModelAndView("admin/index");
+
+        List<BizArticle> articles = articleService.getAllArticle();
+        List<BizComment> comments = commentService.listAllComments();
+        List<SysLink> links = linkService.getAllLink();
+
+        // 取最新的5篇文章
+        List<BizArticle> articleLimit = articleService.getAllArticleWithLimit();
+        List<BizComment> commentLimit = commentService.getAllCommentsWithLimit();
+
+        // 取最新的20条日志
+        List<SysLog> logs = logService.getLogsWithLimit();
+        view.addObject("articles",articles);
+        view.addObject("comments",comments);
+        view.addObject("links",links);
+        view.addObject("logs",logs);
+        view.addObject("articleLimit",articleLimit);
+        view.addObject("commentLimit",commentLimit);
+        return view;
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.daibing.myblog.service.impl;
 
 import com.daibing.myblog.dao.ArticleDao;
-import com.daibing.myblog.dao.BizArticleTagsDao;
+import com.daibing.myblog.dao.ArticleTagsDao;
 import com.daibing.myblog.exception.TipException;
 import com.daibing.myblog.pojo.BizArticle;
 import com.daibing.myblog.service.ArticleService;
@@ -32,7 +32,7 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleDao articleDao;
 
     @Autowired
-    private BizArticleTagsDao articleTagsDao;
+    private ArticleTagsDao articleTagsDao;
 
     @Override
     public void publishArticle(BizArticle article, Integer[] tagId) {
@@ -126,5 +126,20 @@ public class ArticleServiceImpl implements ArticleService {
             articleDao.deleteByArticleId(cid);
             articleTagsDao.removeTagsWithArticleId(article.getId());
         }
+    }
+
+    @Override
+    public List<BizArticle> getArticleByTypeId(Integer cid) {
+        return articleDao.getArticleByTypeId(cid);
+    }
+
+    @Override
+    public List<BizArticle> getAllArticle() {
+        return articleDao.listAllArticles();
+    }
+
+    @Override
+    public List<BizArticle> getAllArticleWithLimit() {
+        return articleDao.getAllArticleWithLimit();
     }
 }

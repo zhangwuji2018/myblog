@@ -9,10 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -46,12 +43,57 @@ public class LinkController {
         return view;
     }
 
+    /**
+     * 保存一条链接
+     * @param link
+     * @return
+     */
     @PostMapping(value = "save")
     @ResponseBody
     @Transactional(rollbackFor = TipException.class)
     public RestResponseBo saveLink(SysLink link) {
         LOGGER.info("请求链接link"+link);
+        try {
+            if (link.getId() == null) {
+                // 新增链接
+                linkService.addLink(link);
+            } else {
+                // 修改链接
+                linkService.updateLink(link);
+            }
+        } catch (Exception e) {
+            String msg = "友链保存失败";
+            if (e instanceof TipException) {
+                msg = e.getMessage();
+            } else {
+                LOGGER.error(msg, e);
+            }
+            return RestResponseBo.fail(msg);
+        }
+        return RestResponseBo.ok();
+    }
 
-        return null;
+    /**
+     * 删除链接
+     * @param id
+     * @return
+     */
+    @PostMapping(value = "delete")
+    @ResponseBody
+    @Transactional(rollbackFor = TipException.class)
+    public RestResponseBo deleteLink(@RequestParam Integer id) {
+        LOGGER.info("请求链接的linkId"+id);
+        try {
+            linkService.deleteLink(id);
+        } catch (Exception e) {
+            String msg = "友链删除失败";
+            if (e instanceof TipException) {
+                msg = e.getMessage();
+            } else {
+                LOGGER.error(msg, e);
+            }
+            return RestResponseBo.fail(msg);
+        }
+        return RestResponseBo.ok();
     }
 }

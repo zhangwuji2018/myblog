@@ -1,7 +1,7 @@
 package com.daibing.myblog;
 
-import com.daibing.myblog.dao.BizTagsDao;
-import com.daibing.myblog.pojo.BizTags;
+import com.daibing.myblog.dao.TagsDao;
+import com.daibing.myblog.dto.BizTagsDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ import java.util.List;
 public class TagsDaoTest {
 
     @Autowired
-    BizTagsDao tagsDao;
+    TagsDao tagsDao;
 
     @Test
     public void test(){
-        List<BizTags> tags = tagsDao.getTagsWithArticleId(1);
-        for (BizTags tag : tags) {
-            System.out.println(tag.toString());
+        List<BizTagsDto> tags = tagsDao.getAllTigsDto();
+        for (BizTagsDto tag : tags) {
+            System.out.println(tag);
         }
     }
 }

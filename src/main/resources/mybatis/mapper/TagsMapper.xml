@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.daibing.myblog.dao.BizTagsDao">
+<mapper namespace="com.daibing.myblog.dao.TagsDao">
 
     <sql id="Base_Column_List">
         id, name, description, create_time, update_time
@@ -18,6 +18,10 @@
     </select>
     <select id="getTagsWithArticleId" resultType="com.daibing.myblog.pojo.BizTags">
         SELECT bts.* FROM biz_tags bts,biz_article_tags bat WHERE bts.id=bat.tag_id AND bat.article_id=#{articleId}
+    </select>
+    <select id="getAllTigsDto" resultType="com.daibing.myblog.dto.BizTagsDto">
+      SELECT id,name,description,bt.create_time create_time,COUNT(bat.article_id) article_num
+      FROM biz_tags bt LEFT JOIN biz_article_tags bat ON bt.id=bat.tag_id GROUP BY bt.id
     </select>
     <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from biz_tags

@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @program: myblog
  * @description:
@@ -30,5 +32,10 @@ public class LogServiceImpl implements LogService {
         log.setIp(ip);
         log.setUserId(userId);
         logDao.insert(log);
+    }
+
+    @Override
+    public List<SysLog> getLogsWithLimit() {
+        return logDao.getLogsWithLimit();
     }
 }

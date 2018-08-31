@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @description: 文章分类
@@ -26,4 +27,6 @@ public class BizType implements Serializable {
     private Date createTime;
     // 修改时间
     private Date updateTime;
+    // 文章集合
+    private List<BizArticle> articles;
 }
